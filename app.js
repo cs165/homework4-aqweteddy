@@ -4,6 +4,7 @@
 // See HW4 writeup for more hints and details.
 class App {
   constructor() {
+    menu = new MenuScreen()
     // TODO(you): Implement the constructor and add fields as necessary.
   }
   // TODO(you): Add methods as necessary.
