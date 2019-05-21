@@ -23,8 +23,7 @@ class PlayButton {
     }
     document.dispatchEvent(new CustomEvent('eventSwitchMusic', {'detail': {
         'toState': this.state
-      }
-    }))
+    }}))
   }
   // TODO(you): Add methods as necessary.
 }

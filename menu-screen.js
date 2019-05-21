@@ -58,6 +58,10 @@ class MenuScreen {
     this.theme.value = THEME_LIST[idx]
   }
 
+  show() {
+    this.container.classList.remove('inactive')
+  }
+
   hide() {
     this.container.classList.add('inactive')
   }

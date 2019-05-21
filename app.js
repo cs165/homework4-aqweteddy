@@ -9,13 +9,20 @@ class App {
     this.musicScreen = new MusicScreen()
 
     this._eventPlayMusic = this._eventPlayMusic.bind(this)
+    this._eventErrorGifLen = this._eventErrorGifLen.bind(this)
     document.addEventListener('eventPlayMusic', this._eventPlayMusic)
+    document.addEventListener('eventErrorGifLen', this._eventErrorGifLen)
   }
 
   _eventPlayMusic(ev){
     this.menuScreen.hide()
-    // console.log(ev.detail.musicUrl, ev.detail.gif)
     this.musicScreen.playMusic(ev.detail.musicUrl, ev.detail.gif)
+  }
+
+  _eventErrorGifLen(ev) {
+    this.menuScreen.show()
+    this.musicScreen.stop()
+    document.querySelector('#error').classList.remove('inactive')
   }
   // TODO(you): Add methods as necessary.
 }

@@ -8,16 +8,23 @@ class GifDisplay {
     this.container = document.querySelector('.gifField')
     this.imgIdx = 0
     this.imgs = new Array()
-    this.orderList = this._RandomshuffleList(this.imgs.length)
+    this.orderList = new Array()
     this.changeImage()
   }
   async changeImage() {
-    if(this.imgs.length == 0){
+    if (this.orderList == 0) {
       await this._fetchGif(this.gif)
+      this.orderList = this._RandomshuffleList(this.imgs.length)
     }
-    let tmp = this.imgs[this.imgIdx++]
-    for(let image of this.container.querySelectorAll('.image')){
-      if(image.classList.contains('foreground'))
+
+    if (this.orderList.length < 2) {
+      document.dispatchEvent(new CustomEvent('eventErrorGifLen'))
+      return
+    }
+
+    let tmp = this.imgs[this.orderList[this.imgIdx++]]
+    for (let image of this.container.querySelectorAll('.image')) {
+      if (image.classList.contains('foreground'))
         image.style.backgroundImage = `url('${tmp}')`
       image.classList.toggle('foreground')
     }
@@ -26,10 +33,10 @@ class GifDisplay {
   _RandomshuffleList(size) {
     let ans = new Array()
 
-    for(let i=0; i<size; ++i) {
-      while(1){
-        let rdm = Math.floor( Math.random() * 10000) % size
-        if(ans.indexOf(rdm) == -1) {
+    for (let i = 0; i < size; ++i) {
+      while (1) {
+        let rdm = Math.floor(Math.random() * 10000) % size
+        if (ans.indexOf(rdm) == -1) {
           ans.push(rdm)
           break
         }
@@ -51,6 +58,6 @@ class GifDisplay {
       .then(Response => Response.json())
       .then(json => { this.imgs = json.data.map(val => val.images.downsized.url) })
   }
-  
+
   // TODO(you): Add methods as necessary.
 }
