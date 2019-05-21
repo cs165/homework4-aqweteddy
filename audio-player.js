@@ -2,16 +2,16 @@
 // expecting you to modify the contents of this file.
 class AudioPlayer {
   constructor() {
-    this._onKickCallback = this._onKickCallback.bind(this);
+    this._onKickCallback = this._onKickCallback.bind(this)
 
-    this.lastKickTime = -1;
+    this.lastKickTime = -1
 
-    this.dancer = new Dancer();
+    this.dancer = new Dancer()
 
     this.kick = this.dancer.createKick({
       onKick: this._onKickCallback
     });
-    this.kick.on();
+    this.kick.on()
   }
 
   setSong(songUrl) {

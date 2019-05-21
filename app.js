@@ -4,8 +4,18 @@
 // See HW4 writeup for more hints and details.
 class App {
   constructor() {
-    menu = new MenuScreen()
-    // TODO(you): Implement the constructor and add fields as necessary.
+    
+    this.menuScreen = new MenuScreen()
+    this.musicScreen = new MusicScreen()
+
+    this._eventPlayMusic = this._eventPlayMusic.bind(this)
+    document.addEventListener('eventPlayMusic', this._eventPlayMusic)
+  }
+
+  _eventPlayMusic(ev){
+    this.menuScreen.hide()
+    // console.log(ev.detail.musicUrl, ev.detail.gif)
+    this.musicScreen.playMusic(ev.detail.musicUrl, ev.detail.gif)
   }
   // TODO(you): Add methods as necessary.
 }

@@ -9,14 +9,30 @@ const THEME_LIST = ['candy', 'charlie brown', 'computers','dance', 'donuts', 'he
 class MenuScreen {
   constructor() {
     // TODO(you): Implement the constructor and add fields as necessary.
-    this.container = document.querySelector('#menu')
+    this._eventClickGo = this._eventClickGo.bind(this)
 
+    this.container = document.querySelector('#menu')
     this.selector = this.container.querySelector('#song-selector')
     this.theme = this.container.querySelector('#query-input')
     this.errMsg = this.container.querySelector('#error')
+    
+    this.form = this.container.querySelector('form')
+    this.form.addEventListener('submit', this._eventClickGo)
 
     this._fetechMusic()
     this._randomChooseTheme()
+  }
+  _eventClickGo(ev) {
+    ev.preventDefault()
+
+    const tmpGif = this.theme.value.trim()
+
+    document.dispatchEvent(new CustomEvent('eventPlayMusic', {
+      'detail': {
+        'musicUrl': this.musics[this.selector.selectedIndex].songUrl,
+        'gif': tmpGif === '' ? this._randomTheme() : tmpGif
+      }
+    }))
   }
 
   _fetechMusic() {
@@ -26,7 +42,6 @@ class MenuScreen {
         this.musics = Object.keys(val).map(key => val[key])
         this._renderSelectorItem()
       })
-
   }
 
   _renderSelectorItem() {
